@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class FoxLangy {
 
@@ -18,10 +19,10 @@ public class FoxLangy {
         this.constantPoolItems.add(new UTF8Constant("()V"));
         this.constantPoolItems.add(new UTF8Constant("net/foxdenstudio/foxlangy/Test"));
         this.constantPoolItems.add(new UTF8Constant("java/lang/Object"));
-        this.constantPoolItems.add(new ClassConstant(2));
         this.constantPoolItems.add(new ClassConstant(3));
-        this.constantPoolItems.add(new NameAndTypeConstant(0,1));
-        this.constantPoolItems.add(new MethodRefConstant(5, 6));
+        this.constantPoolItems.add(new ClassConstant(4));
+        this.constantPoolItems.add(new NameAndTypeConstant(1, 2));
+        this.constantPoolItems.add(new MethodRefConstant(6, 7));
         this.constantPoolItems.add(new UTF8Constant("Code"));
         this.constantPoolItems.add(new UTF8Constant("LineNumberTable"));
         this.constantPoolItems.add(new UTF8Constant("LocalVariableTable"));
@@ -33,9 +34,12 @@ public class FoxLangy {
         try (OutputStream outputStream = new FileOutputStream("script.class")) {
             this.writeHeader(outputStream);
             outputStream.write(0x00);
-            outputStream.write(((byte) (this.constantPoolItems.size() + 1)));
+            final byte i = (byte) (this.constantPoolItems.size() + 1);
+            outputStream.write(i);
+            System.out.println(i);
             for (final IConstantPoolItem constantPoolItem : this.constantPoolItems) {
                 outputStream.write(constantPoolItem.toBytes());
+                System.out.println("\t\t" + Arrays.toString(constantPoolItem.toBytes()));
             }
 
             //access flags
@@ -44,11 +48,11 @@ public class FoxLangy {
 
             //this class
             outputStream.write(0x00);
-            outputStream.write(0x02);
+            outputStream.write(0x05);
 
             //super class
             outputStream.write(0x00);
-            outputStream.write(0x03);
+            outputStream.write(0x06);
 
             //interface count
             outputStream.write(0x00);
@@ -68,11 +72,11 @@ public class FoxLangy {
 
             //  method name_index
             outputStream.write(0x00);
-            outputStream.write(0x00);
+            outputStream.write(0x01);
 
             //  method descriptor_index
             outputStream.write(0x00);
-            outputStream.write(0x01);
+            outputStream.write(0x02);
 
             //  attribute count
             outputStream.write(0x00);
@@ -80,7 +84,7 @@ public class FoxLangy {
 
             //      attribute name_index
             outputStream.write(0x00);
-            outputStream.write(0x08);
+            outputStream.write(0x09);
 
             //      attribute length
             outputStream.write(0x00);
@@ -123,7 +127,7 @@ public class FoxLangy {
 
             //      attribute - Line number table
             outputStream.write(0x00);
-            outputStream.write(0x09);
+            outputStream.write(0x0a);
 
             //          attribute length
             outputStream.write(0x00);
@@ -131,7 +135,7 @@ public class FoxLangy {
             outputStream.write(0x00);
             outputStream.write(0x06);
 
-            //          attribute -line number tbale length
+            //          attribute -line number table length
             outputStream.write(0x00);
             outputStream.write(0x01);
 
@@ -142,10 +146,9 @@ public class FoxLangy {
             outputStream.write(0x03);
 
 
-
             //      attribute - local variable table
             outputStream.write(0x00);
-            outputStream.write(0x0a);
+            outputStream.write(0x0b);
 
             //          attribute length
             outputStream.write(0x00);
@@ -167,11 +170,11 @@ public class FoxLangy {
 
             //              name_index
             outputStream.write(0x00);
-            outputStream.write(0x0b);
+            outputStream.write(0x0c);
 
             //              descriptor_index
             outputStream.write(0x00);
-            outputStream.write(0x0c);
+            outputStream.write(0x0d);
 
             //              index
             outputStream.write(0x00);
@@ -184,15 +187,17 @@ public class FoxLangy {
 
             //      class attribute index - sourcefile
             outputStream.write(0x00);
-            outputStream.write(0x0d);
+            outputStream.write(0x0e);
 
             //      class attribute size - sourcefile
+            outputStream.write(0x00);
+            outputStream.write(0x00);
             outputStream.write(0x00);
             outputStream.write(0x02);
 
             //      class attribute value - sourcefile
             outputStream.write(0x00);
-            outputStream.write(0x0e);
+            outputStream.write(0x0f);
 
         } catch (Exception e) {
             e.printStackTrace();

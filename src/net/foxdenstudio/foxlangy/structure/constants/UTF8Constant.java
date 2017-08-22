@@ -20,7 +20,6 @@ public class UTF8Constant implements IConstantPoolItem {
         for (int i = 0; i < bytes.length; i++) {
             newByteArray[3 + i] = bytes[i];
         }
-        System.out.println(bytes.length + " | " + Arrays.toString(newByteArray));
         return newByteArray;
     }
 }

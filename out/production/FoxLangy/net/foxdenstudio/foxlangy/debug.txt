@@ -1,0 +1,40 @@
+Classfile /E:/Joshua/Projects/FoxLangy/out/production/FoxLangy/net/foxdenstudio/foxlangy/Test.class
+  Last modified Aug 21, 2017; size 289 bytes
+  MD5 checksum f7882f82e34feed08c8167dc89b6bbc1
+  Compiled from "Test.java"
+public class net.foxdenstudio.foxlangy.Test
+  minor version: 0
+  major version: 53
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #3.#13         // java/lang/Object."<init>":()V
+   #2 = Class              #14            // net/foxdenstudio/foxlangy/Test
+   #3 = Class              #15            // java/lang/Object
+   #4 = Utf8               <init>
+   #5 = Utf8               ()V
+   #6 = Utf8               Code
+   #7 = Utf8               LineNumberTable
+   #8 = Utf8               LocalVariableTable
+   #9 = Utf8               this
+  #10 = Utf8               Lnet/foxdenstudio/foxlangy/Test;
+  #11 = Utf8               SourceFile
+  #12 = Utf8               Test.java
+  #13 = NameAndType        #4:#5          // "<init>":()V
+  #14 = Utf8               net/foxdenstudio/foxlangy/Test
+  #15 = Utf8               java/lang/Object
+{
+  public net.foxdenstudio.foxlangy.Test();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 3: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lnet/foxdenstudio/foxlangy/Test;
+}
+SourceFile: "Test.java"

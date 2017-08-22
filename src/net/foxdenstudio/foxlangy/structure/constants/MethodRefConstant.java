@@ -13,7 +13,7 @@ public class MethodRefConstant implements IConstantPoolItem {
     @Override
     public byte[] toBytes() {
         byte[] newByteArray = new byte[5];
-        newByteArray[0] = 0x10;
+        newByteArray[0] = 0x0a;
         newByteArray[1] = 0x00;
         newByteArray[2] = ((byte) this.type);
         newByteArray[3] = 0x00;

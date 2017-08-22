@@ -12,7 +12,7 @@ public class NameAndTypeConstant implements IConstantPoolItem {
     @Override
     public byte[] toBytes() {
         byte[] newByteArray = new byte[5];
-        newByteArray[0] = 0x12;
+        newByteArray[0] = 0x0c;
         newByteArray[1] = 0x00;
         newByteArray[2] = ((byte) this.name);
         newByteArray[3] = 0x00;
