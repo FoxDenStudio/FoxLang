@@ -1,0 +1,5 @@
+var test = Math.random();
+var pos = user:cursor:ray(100):first:coords;
+if (pos == test) {
+
+}
