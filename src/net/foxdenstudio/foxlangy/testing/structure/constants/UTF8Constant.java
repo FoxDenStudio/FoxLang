@@ -1,6 +1,4 @@
-package net.foxdenstudio.foxlangy.structure.constants;
-
-import java.util.Arrays;
+package net.foxdenstudio.foxlangy.testing.structure.constants;
 
 public class UTF8Constant implements IConstantPoolItem {
 

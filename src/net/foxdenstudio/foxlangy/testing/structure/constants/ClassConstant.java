@@ -1,4 +1,4 @@
-package net.foxdenstudio.foxlangy.structure.constants;
+package net.foxdenstudio.foxlangy.testing.structure.constants;
 
 public class ClassConstant implements IConstantPoolItem {
 

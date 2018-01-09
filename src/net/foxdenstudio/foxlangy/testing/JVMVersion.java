@@ -1,4 +1,4 @@
-package net.foxdenstudio.foxlangy;
+package net.foxdenstudio.foxlangy.testing;
 
 public enum JVMVersion {
     JVM5(0x31),JVM6(0x32),JVM7(0x33),JVM8(0x34),JVM9(0x35);

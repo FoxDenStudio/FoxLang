@@ -1,4 +1,4 @@
-package net.foxdenstudio.foxlangy.structure;
+package net.foxdenstudio.foxlangy.testing.structure;
 
 import java.util.HashMap;
 

@@ -1,13 +1,15 @@
-package net.foxdenstudio.foxlangy;
+package net.foxdenstudio.foxlangy.testing;
 
-import net.foxdenstudio.foxlangy.structure.constants.*;
+import net.foxdenstudio.foxlangy.testing.structure.constants.*;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 
+/**
+ * Just checking that I still remember the good old jvm bytecode
+ */
 public class FoxLangy {
 
     final JVMVersion targetJVMVersion = JVMVersion.JVM9;
@@ -39,7 +41,11 @@ public class FoxLangy {
             System.out.println(i);
             for (final IConstantPoolItem constantPoolItem : this.constantPoolItems) {
                 outputStream.write(constantPoolItem.toBytes());
-                System.out.println("\t\t" + Arrays.toString(constantPoolItem.toBytes()));
+                System.out.print("\t\t[");
+                for (byte b : constantPoolItem.toBytes()) {
+                    System.out.print("0x" + Integer.toHexString(b) + " ");
+                }
+                System.out.println("]");
             }
 
             //access flags
@@ -220,7 +226,7 @@ public class FoxLangy {
         outputStream.write(0x00);
         outputStream.write(0x00);
         //  major
-        outputStream.write(0x00);
+        outputStream.write(0x01);
         outputStream.write(this.targetJVMVersion.getHex());
     }
 }
