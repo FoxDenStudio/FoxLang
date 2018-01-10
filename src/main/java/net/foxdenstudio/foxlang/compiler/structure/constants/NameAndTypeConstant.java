@@ -1,6 +1,6 @@
 package net.foxdenstudio.foxlang.compiler.structure.constants;
 
-public class NameAndTypeConstant implements IConstantPoolItem {
+public class NameAndTypeConstant extends ConstantPoolItem {
     private final int name;
     private final int type;
 
@@ -13,9 +13,9 @@ public class NameAndTypeConstant implements IConstantPoolItem {
     public byte[] toBytes() {
         byte[] newByteArray = new byte[5];
         newByteArray[0] = 0x0c;
-        newByteArray[1] = 0x00;
+        newByteArray[1] = ((byte) (this.name >> 8));
         newByteArray[2] = ((byte) this.name);
-        newByteArray[3] = 0x00;
+        newByteArray[3] = ((byte) (this.type >> 8));
         newByteArray[4] = ((byte) this.type);
         return newByteArray;
 

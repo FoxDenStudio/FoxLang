@@ -11,12 +11,12 @@ public class JVMClassBuilderTest {
 
     @Before
     public void setUp() throws Exception {
-        this.jvmClassBuilder = new JVMClassBuilder("test1");
+        this.jvmClassBuilder = new JVMClassBuilder("Snowie.Says","Hi");
     }
 
     @Test
     public void generateByteCode() throws Exception {
-        try (final FileOutputStream fileOutputStream = new FileOutputStream("scripts/test1.flc")) {
+        try (final FileOutputStream fileOutputStream = new FileOutputStream("scripts/test1.class")) {
             for (byte b : this.jvmClassBuilder.generateByteCode()) {
                 fileOutputStream.write(b);
             }

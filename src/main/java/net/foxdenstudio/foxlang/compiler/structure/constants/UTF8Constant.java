@@ -1,6 +1,6 @@
 package net.foxdenstudio.foxlang.compiler.structure.constants;
 
-public class UTF8Constant implements IConstantPoolItem {
+public class UTF8Constant extends ConstantPoolItem {
 
     private final String data;
 
@@ -13,11 +13,9 @@ public class UTF8Constant implements IConstantPoolItem {
         final byte[] bytes = this.data.getBytes();
         byte[] newByteArray = new byte[1 + 2 + bytes.length];
         newByteArray[0] = 0x01;
-        newByteArray[1] = 0x00;
+        newByteArray[1] = ((byte) (bytes.length >> 8));
         newByteArray[2] = ((byte) bytes.length);
-        for (int i = 0; i < bytes.length; i++) {
-            newByteArray[3 + i] = bytes[i];
-        }
+        System.arraycopy(bytes, 0, newByteArray, 3, bytes.length);
         return newByteArray;
     }
 }

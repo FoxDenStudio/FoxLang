@@ -1,6 +1,6 @@
 package net.foxdenstudio.foxlang.compiler.structure.constants;
 
-public class ClassConstant implements IConstantPoolItem {
+public class ClassConstant extends ConstantPoolItem {
 
     private final int lead;
 
@@ -12,7 +12,7 @@ public class ClassConstant implements IConstantPoolItem {
     public byte[] toBytes() {
         byte[] newByteArray = new byte[3];
         newByteArray[0] = 0x07;
-        newByteArray[1] = 0x00;
+        newByteArray[1] = ((byte) (this.lead >> 8));
         newByteArray[2] = ((byte) this.lead);
         return newByteArray;
     }
