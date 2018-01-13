@@ -1,10 +1,10 @@
 package net.foxdenstudio.foxlang.compiler.structure.constants;
 
 public class NameAndTypeConstant extends ConstantPoolItem {
-    private final int name;
-    private final int type;
+    private final UTF8Constant name;
+    private final UTF8Constant type;
 
-    public NameAndTypeConstant(int name, int type) {
+    public NameAndTypeConstant(UTF8Constant name, UTF8Constant type) {
         this.name = name;
         this.type = type;
     }
@@ -13,10 +13,10 @@ public class NameAndTypeConstant extends ConstantPoolItem {
     public byte[] toBytes() {
         byte[] newByteArray = new byte[5];
         newByteArray[0] = 0x0c;
-        newByteArray[1] = ((byte) (this.name >> 8));
-        newByteArray[2] = ((byte) this.name);
-        newByteArray[3] = ((byte) (this.type >> 8));
-        newByteArray[4] = ((byte) this.type);
+        newByteArray[1] = ((byte) (this.name.getLocationInCP() >> 8));
+        newByteArray[2] = ((byte) this.name.getLocationInCP());
+        newByteArray[3] = ((byte) (this.type.getLocationInCP() >> 8));
+        newByteArray[4] = ((byte) this.type.getLocationInCP());
         return newByteArray;
 
     }

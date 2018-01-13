@@ -9,7 +9,26 @@ import java.util.ArrayList;
 import javax.annotation.Nonnull;
 
 public class JVMClassBuilder {
+    private final UTF8Constant initElem;
+    private final UTF8Constant returnElem;
+    private final UTF8Constant thisClassNameElem;
+    private final UTF8Constant objectClassNameElem;
+    private final UTF8Constant specialInterfaceClassNameElem;
+    private final ClassConstant thisClassElem;
+    private final ClassConstant objectClassElem;
+    private final ClassConstant specialInterfaceClassElem;
+    private final NameAndTypeConstant specInitMethodElem;
+    private final MethodRefConstant initMethodRef;
+    private final UTF8Constant codeAttrUTF;
+    private final UTF8Constant lineNumberTable;
+    private final UTF8Constant localVariableTable;
+    private final UTF8Constant thisUTF;
+    private final UTF8Constant thisClassLUTF;
+    private final UTF8Constant sourceFileAttr;
+    private final UTF8Constant sourceFileUTF;
+
     private final JVMVersion targetJVMVersion = JVMVersion.JVM8;
+
     /**
      * DON'T FORGET REFERENCES ARE BASE 1
      */
@@ -20,40 +39,47 @@ public class JVMClassBuilder {
     private final String className;
     private short constantPoolIndex = 0;
 
+
     public JVMClassBuilder(@Nonnull final String classPackage, @Nonnull final String className) {
         this.classPackage = classPackage.isEmpty() ? "foxlangscript" : classPackage;
         this.className = className;
+
+        initElem = new UTF8Constant("<init>");
+        returnElem = new UTF8Constant("()V");
+        thisClassNameElem = new UTF8Constant(this.classPackage.replace('.', '/') + '/' + this.className);
+        objectClassNameElem = new UTF8Constant("java/lang/Object");
+        specialInterfaceClassNameElem = new UTF8Constant("net/foxdenstudio/foxlang/IInternalScript");
+        thisClassElem = new ClassConstant(thisClassNameElem);
+        objectClassElem = new ClassConstant(objectClassNameElem);
+        specialInterfaceClassElem = new ClassConstant(specialInterfaceClassNameElem);
+        specInitMethodElem = new NameAndTypeConstant(initElem, returnElem);
+        initMethodRef = new MethodRefConstant(objectClassElem, specInitMethodElem);
+        codeAttrUTF = new UTF8Constant("Code");
+        lineNumberTable = new UTF8Constant("LineNumberTable");
+        localVariableTable = new UTF8Constant("LocalVariableTable");
+        thisUTF = new UTF8Constant("this");
+        thisClassLUTF = new UTF8Constant("L" + this.classPackage.replace('.', '/') + '/' + this.className + ";");
+        sourceFileAttr = new UTF8Constant("SourceFile");
+        sourceFileUTF = new UTF8Constant(this.className + ".java");
+
         this.constantPoolItems = new ArrayList<>(3);
-
-        final ConstantPoolItem initElem = new UTF8Constant("<init>");
         this.constantPoolItems.add(initElem.setLocationInCP(++constantPoolIndex));
-
-        final ConstantPoolItem returnElem = new UTF8Constant("()V");
         this.constantPoolItems.add(returnElem.setLocationInCP(++constantPoolIndex));
-
-        final ConstantPoolItem thisClassNameElem = new UTF8Constant(this.classPackage.replace('.', '/') + '/' + this.className);
         this.constantPoolItems.add(thisClassNameElem.setLocationInCP(++constantPoolIndex));
-
-        final ConstantPoolItem objectClassNameElem = new UTF8Constant("java/lang/Object");
         this.constantPoolItems.add(objectClassNameElem.setLocationInCP(++constantPoolIndex));
-
-        final ConstantPoolItem thisClassElem = new ClassConstant(thisClassNameElem.getLocationInCP());
+        this.constantPoolItems.add(specialInterfaceClassNameElem.setLocationInCP(++constantPoolIndex));
         this.constantPoolItems.add(thisClassElem.setLocationInCP(++constantPoolIndex));
-
-        final ConstantPoolItem objectClassElem = new ClassConstant(objectClassNameElem.getLocationInCP());
         this.constantPoolItems.add(objectClassElem.setLocationInCP(++constantPoolIndex));
-
-        final ConstantPoolItem specInitMethodElem = new NameAndTypeConstant(initElem.getLocationInCP(), returnElem.getLocationInCP());
+        this.constantPoolItems.add(specialInterfaceClassElem.setLocationInCP(++constantPoolIndex));
         this.constantPoolItems.add(specInitMethodElem.setLocationInCP(++constantPoolIndex));
-
-        this.constantPoolItems.add(new MethodRefConstant(objectClassElem.getLocationInCP(), specInitMethodElem.getLocationInCP()));
-        this.constantPoolItems.add(new UTF8Constant("Code"));
-        this.constantPoolItems.add(new UTF8Constant("LineNumberTable"));
-        this.constantPoolItems.add(new UTF8Constant("LocalVariableTable"));
-        this.constantPoolItems.add(new UTF8Constant("this"));
-        this.constantPoolItems.add(new UTF8Constant("L" + this.classPackage.replace('.', '/') + '/' + this.className + ";"));
-        this.constantPoolItems.add(new UTF8Constant("SourceFile"));
-        this.constantPoolItems.add(new UTF8Constant(this.className + ".java"));
+        this.constantPoolItems.add(initMethodRef.setLocationInCP(++constantPoolIndex));
+        this.constantPoolItems.add(codeAttrUTF.setLocationInCP(++constantPoolIndex));
+        this.constantPoolItems.add(lineNumberTable.setLocationInCP(++constantPoolIndex));
+        this.constantPoolItems.add(localVariableTable.setLocationInCP(++constantPoolIndex));
+        this.constantPoolItems.add(thisUTF.setLocationInCP(++constantPoolIndex));
+        this.constantPoolItems.add(thisClassLUTF.setLocationInCP(++constantPoolIndex));
+        this.constantPoolItems.add(sourceFileAttr.setLocationInCP(++constantPoolIndex));
+        this.constantPoolItems.add(sourceFileUTF.setLocationInCP(++constantPoolIndex));
     }
 
     public byte[] generateByteCode() {
@@ -68,19 +94,23 @@ public class JVMClassBuilder {
 
         //access flags
         byteCode.write(0x00);
-        byteCode.write(0x21); //public & super
+        byteCode.write(0x21);//0x20 /*super*/ & 0x01/*public*/);
 
         //this class
-        byteCode.write(0x00);
-        byteCode.write(0x05);
+        byteCode.write(this.thisClassElem.getLocationInCP() >> 8);
+        byteCode.write(this.thisClassElem.getLocationInCP());
 
         //super class
-        byteCode.write(0x00);
-        byteCode.write(0x06);
+        byteCode.write(this.objectClassElem.getLocationInCP() >> 8);
+        byteCode.write(this.objectClassElem.getLocationInCP());
 
         //interface count
         byteCode.write(0x00);
-        byteCode.write(0x00);
+        byteCode.write(0x01);
+
+        //My Special Interface
+        byteCode.write(this.specialInterfaceClassElem.getLocationInCP() >> 8);
+        byteCode.write(this.specialInterfaceClassElem.getLocationInCP());
 
         //field count
         byteCode.write(0x00);
@@ -95,20 +125,20 @@ public class JVMClassBuilder {
         byteCode.write(0x01); //public
 
         //  method name_index
-        byteCode.write(0x00);
-        byteCode.write(0x01);
+        byteCode.write(this.initElem.getLocationInCP() >> 8);
+        byteCode.write(this.initElem.getLocationInCP());
 
         //  method descriptor_index
-        byteCode.write(0x00);
-        byteCode.write(0x02);
+        byteCode.write(this.returnElem.getLocationInCP() >> 8);
+        byteCode.write(this.returnElem.getLocationInCP());
 
-        //  attribute count
+        //  attribute count (method)
         byteCode.write(0x00);
         byteCode.write(0x01);
 
         //      attribute name_index
-        byteCode.write(0x00);
-        byteCode.write(0x09);
+        byteCode.write(this.codeAttrUTF.getLocationInCP() >> 8);
+        byteCode.write(this.codeAttrUTF.getLocationInCP()); //
 
         //      attribute length
         byteCode.write(0x00);
@@ -136,24 +166,26 @@ public class JVMClassBuilder {
 
         //              invokespecial
         byteCode.write(0xb7);
-        byteCode.write(0x00);
-        byteCode.write(0x07);
+        byteCode.write(this.specInitMethodElem.getLocationInCP() >> 8);
+        byteCode.write(this.specInitMethodElem.getLocationInCP());
 
         //              return
         byteCode.write(0xb1);
 
+        //Exception count
+        byteCode.write(0x00);
+        byteCode.write(0x00);
 
         //      attribute count
         byteCode.write(0x00);
-        byteCode.write(0x00);
-        byteCode.write(0x00);
         byteCode.write(0x02);
+//        byteCode.write(0x01);
 
         //      attribute - Line number table
-        byteCode.write(0x00);
-        byteCode.write(0x0a);
+        byteCode.write(this.lineNumberTable.getLocationInCP() >> 8);
+        byteCode.write(this.lineNumberTable.getLocationInCP());
 
-        //          attribute length
+        //          attribute byte length
         byteCode.write(0x00);
         byteCode.write(0x00);
         byteCode.write(0x00);
@@ -171,8 +203,8 @@ public class JVMClassBuilder {
 
 
         //      attribute - local variable table
-        byteCode.write(0x00);
-        byteCode.write(0x0b);
+        byteCode.write(this.localVariableTable.getLocationInCP() >> 8);
+        byteCode.write(this.localVariableTable.getLocationInCP());
 
         //          attribute length
         byteCode.write(0x00);
@@ -193,25 +225,24 @@ public class JVMClassBuilder {
         byteCode.write(0x05);
 
         //              name_index
-        byteCode.write(0x00);
-        byteCode.write(0x0c);
+        byteCode.write(this.thisUTF.getLocationInCP() >> 8);
+        byteCode.write(this.thisUTF.getLocationInCP());
 
         //              descriptor_index
-        byteCode.write(0x00);
-        byteCode.write(0x0d);
+        byteCode.write(this.thisClassLUTF.getLocationInCP() >> 8);
+        byteCode.write(this.thisClassLUTF.getLocationInCP());
 
         //              index
         byteCode.write(0x00);
         byteCode.write(0x00);
-
 
         //  class attribute count
         byteCode.write(0x00);
         byteCode.write(0x01);
 
         //      class attribute index - sourcefile
-        byteCode.write(0x00);
-        byteCode.write(0x0e);
+        byteCode.write(this.sourceFileAttr.getLocationInCP() >> 8);
+        byteCode.write(this.sourceFileAttr.getLocationInCP());
 
         //      class attribute size - sourcefile
         byteCode.write(0x00);
@@ -220,22 +251,24 @@ public class JVMClassBuilder {
         byteCode.write(0x02);
 
         //      class attribute value - sourcefile
-        byteCode.write(0x00);
-        byteCode.write(0x0f);
+        byteCode.write(this.sourceFileUTF.getLocationInCP() >> 8);
+        byteCode.write(this.sourceFileUTF.getLocationInCP());
 
     }
 
     private void writeConstantPool(@Nonnull final ByteArrayOutputStream byteCode) {
+        // Write the size of the constant pool (2 bytes)
         byteCode.write((constantPoolItems.size() + 1) >> 8);
         byteCode.write((constantPoolItems.size() + 1));
 
         for (final ConstantPoolItem constantPoolItem : this.constantPoolItems) {
             try {
+                // Write each constant pool item to the bytecode
                 byteCode.write(constantPoolItem.toBytes());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.print("\t\t[");
+            System.out.print("\t\t[ ");
             for (byte b : constantPoolItem.toBytes()) {
                 System.out.print("0x" + Integer.toHexString(b) + " ");
             }
@@ -244,14 +277,14 @@ public class JVMClassBuilder {
     }
 
     private void writeClassHeader(@Nonnull final ByteArrayOutputStream byteCode) {
-        //magic class code
+        //magic header class code
         byteCode.write(0xCA);
         byteCode.write(0xFE);
         byteCode.write(0xBA);
         byteCode.write(0xBE);
 
         //version
-        //  minor
+        //  minor (Always 0?
         byteCode.write(0x00);
         byteCode.write(0x00);
         //  major

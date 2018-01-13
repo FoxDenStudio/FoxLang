@@ -17,7 +17,7 @@ public class JVMClassBuilderTest {
     @Test
     public void generateByteCode() throws Exception {
         try (final FileOutputStream fileOutputStream = new FileOutputStream("scripts/test1.class")) {
-            for (byte b : this.jvmClassBuilder.generateByteCode()) {
+            for (final byte b : this.jvmClassBuilder.generateByteCode()) {
                 fileOutputStream.write(b);
             }
         } catch (FileNotFoundException e) {
