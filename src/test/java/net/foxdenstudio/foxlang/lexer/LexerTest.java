@@ -29,5 +29,9 @@ public class LexerTest {
         final ArrayList<Token> tokenize = this.lexer.tokenize();
         final long lengthOfTimeMilli = System.currentTimeMillis() - startTime;
         System.out.println("Tokenizing " + tokenize.size() + " tokens took " + lengthOfTimeMilli + " milliseconds!");
+        System.out.println();
+        System.out.println();
+        System.out.println(tokenize);
+//        tokenize.forEach(System.out::println);
     }
 }
