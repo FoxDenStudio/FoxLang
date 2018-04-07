@@ -1,10 +1,7 @@
 package net.foxdenstudio.foxlang;
 
 import net.foxdenstudio.foxlang.compiler.JVMClassBuilder;
-import net.foxdenstudio.foxlang.compiler.structure.constants.ClassConstant;
-import net.foxdenstudio.foxlang.compiler.structure.constants.MethodRefConstant;
-import net.foxdenstudio.foxlang.compiler.structure.constants.NameAndTypeConstant;
-import net.foxdenstudio.foxlang.compiler.structure.constants.UTF8Constant;
+import net.foxdenstudio.foxlang.compiler.structure.constants.*;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -52,7 +49,7 @@ public class BaseClassBuilder {
         this.thisUTF = new UTF8Constant("this");
         this.thisClassLUTF = new UTF8Constant("L" + "foxlangscript" + '/' + "BaseClass" + ";");
         this.sourceFileAttr = new UTF8Constant("SourceFile");
-        this.sourceFileUTF = new UTF8Constant("BaseClass" + ".java");
+        this.sourceFileUTF = new UTF8Constant("BaseClass" + ".fls");
 
         jvmClassBuilder.addConstantPoolItem(this.initElem);
         jvmClassBuilder.addConstantPoolItem(this.returnElem);

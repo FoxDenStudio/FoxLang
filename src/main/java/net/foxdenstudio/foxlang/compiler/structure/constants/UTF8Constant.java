@@ -18,4 +18,8 @@ public class UTF8Constant extends ConstantPoolItem {
         System.arraycopy(bytes, 0, newByteArray, 3, bytes.length);
         return newByteArray;
     }
+
+    public String getData() {
+        return this.data;
+    }
 }

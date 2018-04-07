@@ -1,18 +1,16 @@
 package net.foxdenstudio.foxlang.compiler;
 
-import edu.umd.cs.findbugs.charsets.UTF8;
 import net.foxdenstudio.foxlang.compiler.structure.FieldHolder;
 import net.foxdenstudio.foxlang.compiler.structure.constants.ClassConstant;
 import net.foxdenstudio.foxlang.compiler.structure.constants.ConstantPoolItem;
 import net.foxdenstudio.foxlang.compiler.structure.constants.UTF8Constant;
 
+import javax.annotation.Nonnull;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-
-import javax.annotation.Nonnull;
 
 public class JVMClassBuilder {
 
@@ -28,10 +26,10 @@ public class JVMClassBuilder {
     private final String className;
     private final List<ClassConstant> interfaceClassElems;
     private final List<FieldHolder> fields;
+    private final List<Consumer<ByteArrayOutputStream>> methodCodeGenerators;
     private short constantPoolIndex = 0;
     private ClassConstant thisClassElem;
     private ClassConstant superClassElem;
-    private final List<Consumer<ByteArrayOutputStream>> methodCodeGenerators;
     private UTF8Constant sourceFileAttr;
     private UTF8Constant sourceFileUTF;
 
@@ -78,11 +76,15 @@ public class JVMClassBuilder {
         return byteCode.toByteArray();
     }
 
+    public ArrayList<ConstantPoolItem> getConstantPoolItems() {
+        return this.constantPoolItems;
+    }
+
     private void writeCode(@Nonnull final ByteArrayOutputStream byteCode) {
 
         //access flags
         byteCode.write(0x00);
-        byteCode.write(0x21);//0x20 /*super*/ & 0x01/*public*/);
+        byteCode.write(0x21); // 0x20 /*super*/ & 0x01 /*public*/
 
         //this class
         byteCode.write(this.thisClassElem.getLocationInCP() >> 8);
@@ -111,11 +113,11 @@ public class JVMClassBuilder {
             byteCode.write(field.getAccessFlags());
 
             // Field Name Index
-            byteCode.write(field.getName().getLocationInCP()>>8);
+            byteCode.write(field.getName().getLocationInCP() >> 8);
             byteCode.write(field.getName().getLocationInCP());
 
             // Field Descriptor Index
-            byteCode.write(field.getDescriptor().getLocationInCP()>>8);
+            byteCode.write(field.getDescriptor().getLocationInCP() >> 8);
             byteCode.write(field.getDescriptor().getLocationInCP());
 
             // Field Attribute Count // TODO: Make this actually do stuff
@@ -125,23 +127,12 @@ public class JVMClassBuilder {
             // TODO: Write the attribute data properly as needed (only constant value?)
         }
 
-        //method count
-//        byteCode.write(0x00);
-//        byteCode.write(0x01);
-
-
-        byteCode.write(this.methodCodeGenerators.size()>>8);
+        byteCode.write(this.methodCodeGenerators.size() >> 8);
         byteCode.write(this.methodCodeGenerators.size());
-
 
         for (final Consumer<ByteArrayOutputStream> methodCodeGenerator : this.methodCodeGenerators) {
             methodCodeGenerator.accept(byteCode);
         }
-
-        /////// START METHOD 1 HERE
-        /////////END METHOD 1 HERE
-
-
 
         //  class attribute count
         byteCode.write(0x00);
@@ -160,7 +151,6 @@ public class JVMClassBuilder {
         //      class attribute value - sourcefile
         byteCode.write(this.sourceFileUTF.getLocationInCP() >> 8);
         byteCode.write(this.sourceFileUTF.getLocationInCP());
-
     }
 
     private void writeConstantPool(@Nonnull final ByteArrayOutputStream byteCode) {
