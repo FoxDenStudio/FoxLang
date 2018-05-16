@@ -15,12 +15,14 @@ public class LexerTest {
 
     @Before
     public void setUp() throws Exception {
-        final Path test1Path = Paths.get("scripts/test1.fl");
+        final Path test1Path = Paths.get("scripts").resolve("test1.fl");
         if (Files.notExists(test1Path)) {
             Files.createDirectories(test1Path.getParent());
             Files.createFile(test1Path);
         }
-        this.lexer = new Lexer(Files.readAllBytes(test1Path));
+        System.out.println(test1Path.toAbsolutePath().toString());
+        final byte[] data = Files.readAllBytes(test1Path);
+        this.lexer = new Lexer(data);
     }
 
     @Test
@@ -32,6 +34,8 @@ public class LexerTest {
         System.out.println();
         System.out.println();
         System.out.println(tokenize);
-//        tokenize.forEach(System.out::println);
+        System.out.println();
+        System.out.println();
+        tokenize.forEach(System.out::println);
     }
 }

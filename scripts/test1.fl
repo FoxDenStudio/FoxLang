@@ -1,5 +1,322 @@
-var test = Math.random();
-var pos = user:cursor:ray(100):first:coords;
-if (pos == test) {
+generateTreeTrunk(10,70);
 
+fun generateTreeTrunk(var width, var height) {
+
+    var pos = user:cursor:ray(100):first:coords;
+
+    for (var y1 = 0; y1 < height; y1++){
+        var PI = 3.1415926535;
+        var i, x1, z1;
+
+        for(i = 0; i < 360; i += 0.1)
+        {
+            angle = i;
+            x1 = r * cos(angle * PI / 180);
+            z1 = r * sin(angle * PI / 180);
+
+            world:block(pos:x + x1, pos:y + y1, pos:z + z1) {
+                type = [[bleached_wood_base]];
+            }
+        }
+    }
+    user:chat.message("Tree trunk created at $pos");
+}
+generateTreeTrunk(10,70);
+
+fun generateTreeTrunk(var width, var height) {
+
+    var pos = user:cursor:ray(100):first:coords;
+
+    for (var y1 = 0; y1 < height; y1++){
+        var PI = 3.1415926535;
+        var i, x1, z1;
+
+        for(i = 0; i < 360; i += 0.1)
+        {
+            angle = i;
+            x1 = r * cos(angle * PI / 180);
+            z1 = r * sin(angle * PI / 180);
+
+            world:block(pos:x + x1, pos:y + y1, pos:z + z1) {
+                type = [[bleached_wood_base]];
+            }
+        }
+    }
+    user:chat.message("Tree trunk created at $pos");
+}
+generateTreeTrunk(10,70);
+
+fun generateTreeTrunk(var width, var height) {
+
+    var pos = user:cursor:ray(100):first:coords;
+
+    for (var y1 = 0; y1 < height; y1++){
+        var PI = 3.1415926535;
+        var i, x1, z1;
+
+        for(i = 0; i < 360; i += 0.1)
+        {
+            angle = i;
+            x1 = r * cos(angle * PI / 180);
+            z1 = r * sin(angle * PI / 180);
+
+            world:block(pos:x + x1, pos:y + y1, pos:z + z1) {
+                type = [[bleached_wood_base]];
+            }
+        }
+    }
+    user:chat.message("Tree trunk created at $pos");
+}
+generateTreeTrunk(10,70);
+
+fun generateTreeTrunk(var width, var height) {
+
+    var pos = user:cursor:ray(100):first:coords;
+
+    for (var y1 = 0; y1 < height; y1++){
+        var PI = 3.1415926535;
+        var i, x1, z1;
+
+        for(i = 0; i < 360; i += 0.1)
+        {
+            angle = i;
+            x1 = r * cos(angle * PI / 180);
+            z1 = r * sin(angle * PI / 180);
+
+            world:block(pos:x + x1, pos:y + y1, pos:z + z1) {
+                type = [[bleached_wood_base]];
+            }
+        }
+    }
+    user:chat.message("Tree trunk created at $pos");
+}
+generateTreeTrunk(10,70);
+
+fun generateTreeTrunk(var width, var height) {
+
+    var pos = user:cursor:ray(100):first:coords;
+
+    for (var y1 = 0; y1 < height; y1++){
+        var PI = 3.1415926535;
+        var i, x1, z1;
+
+        for(i = 0; i < 360; i += 0.1)
+        {
+            angle = i;
+            x1 = r * cos(angle * PI / 180);
+            z1 = r * sin(angle * PI / 180);
+
+            world:block(pos:x + x1, pos:y + y1, pos:z + z1) {
+                type = [[bleached_wood_base]];
+            }
+        }
+    }
+    user:chat.message("Tree trunk created at $pos");
+}
+generateTreeTrunk(10,70);
+
+fun generateTreeTrunk(var width, var height) {
+
+    var pos = user:cursor:ray(100):first:coords;
+
+    for (var y1 = 0; y1 < height; y1++){
+        var PI = 3.1415926535;
+        var i, x1, z1;
+
+        for(i = 0; i < 360; i += 0.1)
+        {
+            angle = i;
+            x1 = r * cos(angle * PI / 180);
+            z1 = r * sin(angle * PI / 180);
+
+            world:block(pos:x + x1, pos:y + y1, pos:z + z1) {
+                type = [[bleached_wood_base]];
+            }
+        }
+    }
+    user:chat.message("Tree trunk created at $pos");
+}
+generateTreeTrunk(10,70);
+
+fun generateTreeTrunk(var width, var height) {
+
+    var pos = user:cursor:ray(100):first:coords;
+
+    for (var y1 = 0; y1 < height; y1++){
+        var PI = 3.1415926535;
+        var i, x1, z1;
+
+        for(i = 0; i < 360; i += 0.1)
+        {
+            angle = i;
+            x1 = r * cos(angle * PI / 180);
+            z1 = r * sin(angle * PI / 180);
+
+            world:block(pos:x + x1, pos:y + y1, pos:z + z1) {
+                type = [[bleached_wood_base]];
+            }
+        }
+    }
+    user:chat.message("Tree trunk created at $pos");
+}
+generateTreeTrunk(10,70);
+
+fun generateTreeTrunk(var width, var height) {
+
+    var pos = user:cursor:ray(100):first:coords;
+
+    for (var y1 = 0; y1 < height; y1++){
+        var PI = 3.1415926535;
+        var i, x1, z1;
+
+        for(i = 0; i < 360; i += 0.1)
+        {
+            angle = i;
+            x1 = r * cos(angle * PI / 180);
+            z1 = r * sin(angle * PI / 180);
+
+            world:block(pos:x + x1, pos:y + y1, pos:z + z1) {
+                type = [[bleached_wood_base]];
+            }
+        }
+    }
+    user:chat.message("Tree trunk created at $pos");
+}
+generateTreeTrunk(10,70);
+
+fun generateTreeTrunk(var width, var height) {
+
+    var pos = user:cursor:ray(100):first:coords;
+
+    for (var y1 = 0; y1 < height; y1++){
+        var PI = 3.1415926535;
+        var i, x1, z1;
+
+        for(i = 0; i < 360; i += 0.1)
+        {
+            angle = i;
+            x1 = r * cos(angle * PI / 180);
+            z1 = r * sin(angle * PI / 180);
+
+            world:block(pos:x + x1, pos:y + y1, pos:z + z1) {
+                type = [[bleached_wood_base]];
+            }
+        }
+    }
+    user:chat.message("Tree trunk created at $pos");
+}
+generateTreeTrunk(10,70);
+
+fun generateTreeTrunk(var width, var height) {
+
+    var pos = user:cursor:ray(100):first:coords;
+
+    for (var y1 = 0; y1 < height; y1++){
+        var PI = 3.1415926535;
+        var i, x1, z1;
+
+        for(i = 0; i < 360; i += 0.1)
+        {
+            angle = i;
+            x1 = r * cos(angle * PI / 180);
+            z1 = r * sin(angle * PI / 180);
+
+            world:block(pos:x + x1, pos:y + y1, pos:z + z1) {
+                type = [[bleached_wood_base]];
+            }
+        }
+    }
+    user:chat.message("Tree trunk created at $pos");
+}
+generateTreeTrunk(10,70);
+
+fun generateTreeTrunk(var width, var height) {
+
+    var pos = user:cursor:ray(100):first:coords;
+
+    for (var y1 = 0; y1 < height; y1++){
+        var PI = 3.1415926535;
+        var i, x1, z1;
+
+        for(i = 0; i < 360; i += 0.1)
+        {
+            angle = i;
+            x1 = r * cos(angle * PI / 180);
+            z1 = r * sin(angle * PI / 180);
+
+            world:block(pos:x + x1, pos:y + y1, pos:z + z1) {
+                type = [[bleached_wood_base]];
+            }
+        }
+    }
+    user:chat.message("Tree trunk created at $pos");
+}
+generateTreeTrunk(10,70);
+
+fun generateTreeTrunk(var width, var height) {
+
+    var pos = user:cursor:ray(100):first:coords;
+
+    for (var y1 = 0; y1 < height; y1++){
+        var PI = 3.1415926535;
+        var i, x1, z1;
+
+        for(i = 0; i < 360; i += 0.1)
+        {
+            angle = i;
+            x1 = r * cos(angle * PI / 180);
+            z1 = r * sin(angle * PI / 180);
+
+            world:block(pos:x + x1, pos:y + y1, pos:z + z1) {
+                type = [[bleached_wood_base]];
+            }
+        }
+    }
+    user:chat.message("Tree trunk created at $pos");
+}
+generateTreeTrunk(10,70);
+
+fun generateTreeTrunk(var width, var height) {
+
+    var pos = user:cursor:ray(100):first:coords;
+
+    for (var y1 = 0; y1 < height; y1++){
+        var PI = 3.1415926535;
+        var i, x1, z1;
+
+        for(i = 0; i < 360; i += 0.1)
+        {
+            angle = i;
+            x1 = r * cos(angle * PI / 180);
+            z1 = r * sin(angle * PI / 180);
+
+            world:block(pos:x + x1, pos:y + y1, pos:z + z1) {
+                type = [[bleached_wood_base]];
+            }
+        }
+    }
+    user:chat.message("Tree trunk created at $pos");
+}
+generateTreeTrunk(10,70);
+
+fun generateTreeTrunk(var width, var height) {
+
+    var pos = user:cursor:ray(100):first:coords;
+
+    for (var y1 = 0; y1 < height; y1++){
+        var PI = 3.1415926535;
+        var i, x1, z1;
+
+        for(i = 0; i < 360; i += 0.1)
+        {
+            angle = i;
+            x1 = r * cos(angle * PI / 180);
+            z1 = r * sin(angle * PI / 180);
+
+            world:block(pos:x + x1, pos:y + y1, pos:z + z1) {
+                type = [[bleached_wood_base]];
+            }
+        }
+    }
+    user:chat.message("Tree trunk created at $pos");
 }

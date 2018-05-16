@@ -12,13 +12,13 @@ public class SymbolToken extends Token {
 
     @Nonnull
     public Symbol getSymbol() {
-        return symbol;
+        return this.symbol;
     }
 
     @Override
     public String toString() {
         return "SymbolToken{" +
-                "symbol=" + symbol +
+                "symbol=" + this.symbol +
                 '}';
     }
 
@@ -34,7 +34,14 @@ public class SymbolToken extends Token {
         OPEN_CURLY_BRACE("{", "Open Curly Brace"),
         CLOSE_CURLY_BRACE("}", "Close Curly Brace"),
         OPEN_SQUARE_BRACKET("[", "Open Square Bracket"),
-        CLOSE_SQUARE_BRACKET("]", "Close Square Bracket");
+        CLOSE_SQUARE_BRACKET("]", "Close Square Bracket"),
+        OPEN_TRIANGLE_BRACKET("<", "Open Triangle Bracket"),
+        CLOSE_TRIANGLE_BRACKET(">", "Close Triangle Bracket"),
+        INCREMENT("++", "Increment"),
+        PLUS("+", "Plus"),
+        MULTIPLY("*", "Multiply"),
+        DIVIDE("/", "Divide"),
+        ;
 
         @Nonnull
         private final String syntaxLook;
@@ -49,19 +56,19 @@ public class SymbolToken extends Token {
 
         @Nonnull
         public String getSyntaxLook() {
-            return syntaxLook;
+            return this.syntaxLook;
         }
 
         @Nonnull
         public String getPrettyName() {
-            return prettyName;
+            return this.prettyName;
         }
 
         @Override
         public String toString() {
             return "Symbol{" +
-                    "syntaxLook='" + syntaxLook + '\'' +
-                    ", prettyName='" + prettyName + '\'' +
+                    "syntaxLook='" + this.syntaxLook + '\'' +
+                    ", prettyName='" + this.prettyName + '\'' +
                     '}';
         }
     }

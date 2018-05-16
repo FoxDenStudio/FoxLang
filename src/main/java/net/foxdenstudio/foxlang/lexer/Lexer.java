@@ -1,9 +1,6 @@
 package net.foxdenstudio.foxlang.lexer;
 
-import net.foxdenstudio.foxlang.lexer.tokens.NumberToken;
-import net.foxdenstudio.foxlang.lexer.tokens.SymbolToken;
-import net.foxdenstudio.foxlang.lexer.tokens.Token;
-import net.foxdenstudio.foxlang.lexer.tokens.WordToken;
+import net.foxdenstudio.foxlang.lexer.tokens.*;
 
 import java.util.ArrayList;
 
@@ -22,7 +19,7 @@ public final class Lexer {
     public ArrayList<Token> tokenize() {
         final ArrayList<Token> tokenList = new ArrayList<>();
         Token token;
-        while ((token = lex()) != null) {
+        while ((token = this.lex()) != null) {
             tokenList.add(token);
         }
         return tokenList;
@@ -30,28 +27,41 @@ public final class Lexer {
 
     private Token lex() {
 
-        while (position < dataLength && Character.isWhitespace(data[position])) {
-            position++;
+        while (this.position < this.dataLength && Character.isWhitespace(this.data[this.position])) {
+            this.position++;
         }
 
-        if (position == dataLength) {
+        if (this.position == this.dataLength) {
             return null;
         }
 
-        if (Character.isLetter(data[position]) || data[position] == (byte) '_') {
-            return word();
+        if (Character.isLetter(this.data[this.position]) || this.data[this.position] == (byte) '_') {
+            return this.word();
         }
-        if (Character.isDigit(data[position])) {
-            return number();
+        if (Character.isDigit(this.data[this.position])) {
+            return this.number();
         }
 
-        switch (data[position++]) {
+        switch (this.data[this.position++]) {
             case (byte) '=':
-                if (data[position + 1] == (byte) '=') {
-                    position++;
+                if (this.data[this.position + 1] == (byte) '=') {
+                    this.position++;
                     return new SymbolToken(SymbolToken.Symbol.COMPARATIVE_EQUALS);
                 }
                 return new SymbolToken(SymbolToken.Symbol.EQUALS);
+            case (byte) '+':
+                if (this.data[this.position + 1] == (byte) '+') {
+                    this.position++;
+                    return new SymbolToken(SymbolToken.Symbol.INCREMENT);
+                }
+                return new SymbolToken(SymbolToken.Symbol.PLUS);
+            case (byte) '*':
+                return new SymbolToken(SymbolToken.Symbol.MULTIPLY);
+            case (byte) '/':
+                // TODO Start comment if double slash
+                return new SymbolToken(SymbolToken.Symbol.DIVIDE);
+            case (byte) '"':
+                return this.string();
             case (byte) '.':
                 return new SymbolToken(SymbolToken.Symbol.PERIOD);
             case (byte) '(':
@@ -72,22 +82,38 @@ public final class Lexer {
                 return new SymbolToken(SymbolToken.Symbol.COLON);
             case (byte) ',':
                 return new SymbolToken(SymbolToken.Symbol.COMMA);
+            case (byte) '<':
+                return new SymbolToken(SymbolToken.Symbol.OPEN_TRIANGLE_BRACKET);
+            case (byte) '>':
+                return new SymbolToken(SymbolToken.Symbol.CLOSE_TRIANGLE_BRACKET);
         }
         return null;
     }
 
+    private Token string() {
+        StringBuilder stringBuilder = new StringBuilder();
+        while ((char) this.data[this.position] != '"') {
+            if (this.data[this.position] == '\\') {
+                this.position++;
+            }
+            stringBuilder.append((char) this.data[this.position++]);
+        }
+        this.position++;
+        return new StringToken(stringBuilder.toString());
+    }
+
     private Token number() {
         StringBuilder stringBuilder = new StringBuilder();
-        while (Character.isDigit((char) data[position])) {
-            stringBuilder.append((char) data[position++]);
+        while (Character.isDigit((char) this.data[this.position])) {
+            stringBuilder.append((char) this.data[this.position++]);
         }
         return new NumberToken(Long.parseLong(stringBuilder.toString()));
     }
 
     private Token word() {
         StringBuilder stringBuilder = new StringBuilder();
-        while (Character.isLetterOrDigit(data[position]) || data[position] == (byte) '_') {
-            stringBuilder.append((char) data[position++]);
+        while (Character.isLetterOrDigit(this.data[this.position]) || this.data[this.position] == (byte) '_') {
+            stringBuilder.append((char) this.data[this.position++]);
         }
         return new WordToken(stringBuilder.toString());
     }
